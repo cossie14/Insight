@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from . import login_manager
 from datetime import datetime
-#...
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -79,22 +79,6 @@ class Comments(db.Model):
 
     def __repr__(self):
         return f"Comments('{self.comment}', '{self.date_posted}')"
-
-class Role(db.Model):
-    """
-    Create a Role table
-    """
-
-    __tablename__ = 'roles'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), unique=True)
-    description = db.Column(db.String(200))
-    user = db.relationship('User', backref='role',
-                                lazy='dynamic')
-
-    def __repr__(self):
-        return '<Role: {}>'.format(self.name)
 
 class Subscriber(UserMixin, db.Model):
    __tablename__="subscribers"

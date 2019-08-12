@@ -1,0 +1,5 @@
+export SECRET_KEY="cossie"
+export  MAIL_USERNAME="sylviah@gmail.com"
+export MAIL_PASSWORD="mulu@gift"
+
+python3.6 manage.py server 
