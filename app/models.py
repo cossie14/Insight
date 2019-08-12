@@ -1,101 +1,110 @@
   
-from . import db
-from werkzeug.security import generate_password_hash,check_password_hash
+from . import db,login_manager
 from flask_login import UserMixin
-from . import login_manager
+from werkzeug.security import generate_password_hash,check_password_hash
+from app import create_app
 from datetime import datetime
-
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 class User(UserMixin,db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer,primary_key = True)
-    author = db.Column(db.String(255))
-    email = db.Column(db.String(255),unique = True,index = True)
-    password_hash = db.Column(db.String(255))
-    bio = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
-    blogpost = db.relationship('Blogs', backref='author', lazy='dynamic')
-    comments = db.relationship('Comments', backref='author', lazy='dynamic')
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    is_admin = db.Column(db.Boolean, default=False)
+    __tablename__='users'
 
-#to link tables what you add after backref matters
+    id = db.Column(db.Integer,primary_key = True)
+    username = db.Column(db.String(255),index = True)
+    email = db.Column(db.String(255),index = True)
+    bio = db.Column(db.String(255))
+    password_hash = db.Column(db.String(255))
+
+    # Defines the one to many relationships in the application
+    blogs = db.relationship('Blog', backref = 'user', lazy ="dynamic")
+    comments = db.relationship('Comment',backref = 'user',lazy = "dynamic")
+
+    # Defines the foreign keys to accesed by the user table for the one to many relationship
+    role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
+
+    # This defines the password hashing property for the password column
     @property
     def password(self):
-        raise AttributeError('You cannnot read the password attribute')
+        raise AttributeError('You cannot read the password')
 
     @password.setter
-    def password(self, password):
+    def password(self,password):
         self.password_hash = generate_password_hash(password)
 
     def verify_password(self,password):
         return check_password_hash(self.password_hash,password)
 
+    # This is a model debugger
     def __repr__(self):
-        return f'Author: {self.author}'
+        return f'User {self.username}'
 
-class Blogs(db.Model):
-    __tablename__= 'blogs'
+class Role(db.Model):
+
+    __tablename__='roles'
     id = db.Column(db.Integer,primary_key = True)
-    title = db.Column(db.String(255))
-    topic = db.Column(db.String(255))
-    content = db.Column(db.Text)
-    date = db.Column(db.DateTime(250), default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    comments = db.relationship('Comments', backref='title', lazy='dynamic')
+    name = db.Column(db.String(255))
+    users = db.relationship('User',backref = 'role', lazy="dynamic")
 
-    def save_blog(self,blogpost):
-        db.session.add(blogpost)
-        db.session.commit()
-
-    @classmethod
-    def get_blogposts(id):
-        blogpost = Blogs.query.filter_by(title=title).all()
-        return blogpost
-
-    def __repr__(self):
-        return f"Blogs {self.id}','{self.date}')"
-
-class Comments(db.Model):
-    __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True)
-    comment = db.Column(db.String(255))
-    date_posted = db.Column(db.DateTime(250), default=datetime.utcnow)
-    blogs_id = db.Column(db.Integer, db.ForeignKey("blogs.id"))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-
-    def save_comment(self):
+    # This adds the user role to the database
+    def save_role(self):
         db.session.add(self)
         db.session.commit()
 
+    def __repr__(self):
+        return f'User {self.name}'
+class Blog(db.Model):
+    __tablename__='blogs'
+
+    id = db.Column(db.Integer,primary_key = True)
+    blog_title = db.Column(db.String(255))
+    blog_description = db.Column(db.String(255))
+    story = db.Column(db.String())
+    category = db.Column(db.String(255))
+    posted  = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
+
+    # This defines the relationships with other tables
+    author = db.Column(db.Integer,db.ForeignKey("users.id"))
+    comments = db.relationship('Comment',backref = 'blog',lazy="dynamic")
+
+    # This method saves the blog posts
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
+    # Returns all the blogs from the database
     @classmethod
-    def get_comment(cls,id):
-        comments = Comments.query.filter_by(blogs_id=id).all()
-        return comments
+    def get_blogs(cls,id):
+        blogs = Blog.query.filter_by(id=id)
+        return blogs
 
     def __repr__(self):
-        return f"Comments('{self.comment}', '{self.date_posted}')"
+        return f'Pitch {self.pitch_title}'
 
-class Subscriber(UserMixin, db.Model):
-   __tablename__="subscribers"
+class Comment(db.Model):
+    __tablename__='comments'
 
-   id = db.Column(db.Integer, primary_key=True)
-   name = db.Column(db.String(255))
-   email = db.Column(db.String(255),unique = True,index = True)
+    id = db.Column(db.Integer,primary_key=True)
+    comment = db.Column(db.String(255))
+    blog_id = db.Column(db.Integer,db.ForeignKey('blogs.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 
+    # Saves the comment to the database
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+    # Gets all the comments from the database
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(pitch_id=id)
+        return comments
 
-   def save_subscriber(self):
-       db.session.add(self)
-       db.session.commit()
+    @classmethod
+    def delete_comment(cls,comment):
+        db.session.delete(comment)
+        db.session.commit()
 
-   @classmethod
-   def get_subscribers(cls,id):
-       return Subscriber.query.all()
-
-
-   def __repr__(self):
-       return f'User {self.email}'
+    def __repr__(self):
+        return f'{self.user_id}:{self.pitch_id}'

@@ -1,19 +1,34 @@
-{% extends 'base.html'%}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block content %}
-<br>
-
-<div class="container">
-  <div style="width: 60%; height:50%">
+{% extends 'base.html' %}
+{% block content%}
 
 
-<br>
-  {{ wtf.quick_form(blogpost_form) }}{{simplemde.load}}
+<div class="container-fluid">
+        <div class="jumbotron">
+            <h1>Read and leave a comment</h1>
+            <a class="btn btn-light btn-xl sr-button" href="{{url_for('main.new_blog')}}">Post Blog</a>
+        </div>
+    </div>
 
-
-</div>
-
+<!-- Body Section -->
+<div class="container wrapper">
+    <div class="row">
+        {% for blog in blogs%}
+        <div class="col-md-12 mb-3">
+        <div class="card border-dark flex-fill">
+                <div class="card-header">
+                    {{blog.blog_title}}
+                </div>
+                <div class="card-body">
+                  <h2 class="card-title"><strong>{{blog.blog_title}}</strong></h2>
+                  <p class="card-text">{{blog.story|truncate(500)}}</p>
+                  <p class="text muted">posted by {{blog.user.username}}</p>
+                  <p class="text muted">posted on {{blog.posted}}</p>
+                  <a class="btn btn-primary btn-xl sr-button" href="{{url_for('main.new_comment',id = blog.id)}}"> Comment</a>
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
