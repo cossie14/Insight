@@ -35,19 +35,6 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
-class Role(db.Model):
-
-    __tablename__='roles'
-    id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String(255))
-    users = db.relationship('User',backref = 'role', lazy="dynamic")
-
-    def save_role(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def __repr__(self):
-        return f'User {self.name}'
 class Blog(db.Model):
     __tablename__='blogs'
 
@@ -58,16 +45,15 @@ class Blog(db.Model):
     category = db.Column(db.String(255))
     posted  = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
 
-    # This defines the relationships with other tables
     author = db.Column(db.Integer,db.ForeignKey("users.id"))
     comments = db.relationship('Comment',backref = 'blog',lazy="dynamic")
 
-    # This method saves the blog posts
+
     def save_blog(self):
         db.session.add(self)
         db.session.commit()
 
-    # Returns all the blogs from the database
+
     @classmethod
     def get_blogs(cls,id):
         blogs = Blog.query.filter_by(id=id)
