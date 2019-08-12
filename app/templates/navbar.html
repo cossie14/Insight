@@ -1,51 +1,55 @@
 <div class="navbar navbar-inverse" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/"> Sylviah;s Blog</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-                              <li class="nav-item active">
-                          
-                              </li>
-                              <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                     <br>Insight Stories<br>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                  <a class="dropdown-item" href="/#Religion">Religion</a><br>
-                                  <a class="dropdown-item" href="/#Politics">Politics</a><br>
-                                  <a class="dropdown-item" href="/#Love"><Label>Love</Label></a><br>
-                                  <a class="dropdown-item" href="/#Cancer">Cancer</a><br>
-                                  <a class="dropdown-item" href="/#Science ">Science</a>
-                              </li>
-                            </ul>
-
-
-                {% if current_user.is_authenticated %}
-                <li style="color:white;padding:15px;">{{current_user.username}}</li>
-                <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
-                <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
-                {% else %}
-                <li><a href="{{url_for('auth.register')}}">Register</a></li>
-                <li class="divider"></li>
-                <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
-                {% endif %}
-            </ul>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/"> Sylviah;s Blog</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+    
+    
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto">
+                                  <li class="nav-item active">
+                              
+                                  </li>
+                                  <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                         <br>Insight Stories<br>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <a class="dropdown-item" href="/#Religion">Religion</a><br>
+                                      <a class="dropdown-item" href="/#Politics">Politics</a><br>
+                                      <a class="dropdown-item" href="/#Love"><Label>Love</Label></a><br>
+                                      <a class="dropdown-item" href="/#Cancer">Cancer</a><br>
+                                      <a class="dropdown-item" href="/#Science ">Science</a>
+                                  </li>
+                                </ul>
+    
+    
+                    {% if current_user.is_authenticated %}
+                    <li style="color:white;padding:15px;">{{current_user.username}}</li>
+                    <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
+                    <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+                    {% else %}
+                    <li><a href="{{url_for('auth.register')}}">Register</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-
-
-        
-
-
-
+    
+    <div class="image">
+    
+        <img src="https://images.pexels.com/photos/1227520/pexels-photo-1227520.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="globe" style="width:100%; height:400px">\
+    
+    
+    
+                </div>
+            
+    
 
