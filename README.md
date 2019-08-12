@@ -5,7 +5,7 @@ Insight
 Sylviah Rutto
 
 ## Description
-This is a blogging application that enables users to log in,vies and create posts. Comment and delete posts that they created. 
+This is a blogging application that enables users to log in,view and create posts. Comment and delete posts that they created. 
 
 ## The behaviors implemented include;
 1 Allows a user to post on the  blog<br>
