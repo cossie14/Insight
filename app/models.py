@@ -89,7 +89,7 @@ class Comment(db.Model):
         return f'{self.user_id}:{self.blog_id}'
 
 
-     class Subscriber(UserMixin, db.Model):
+class Subscriber(UserMixin, db.Model):
    __tablename__="subscribers"
 
    id = db.Column(db.Integer, primary_key=True)
