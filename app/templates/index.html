@@ -1,93 +1,42 @@
-{% extends 'base.html' %}
-{% import 'macros.html' as macro%}
-<!-- Styles Block -->
 
-{% block Styles%}
-{{ super ()}}
-<link rel="stylesheet" href="{{url_for('static',filename='css/blog.css')}}">
-{% endblock %}
-
-<!-- This describes what will appear on the landing page -->
+{% extends 'base.html'%}
+{% block styles%} {{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/blog.css')}}"> {% endblock %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-</head>
-<title>Blog Insight</title>
-<!-- Header -->
-<section class="text-black text-center section-1">
-    <header class="masthead text-center text-black d-flex">
-        <div class="container-fluid">
-            <div class="jumbotron">
-                <div class="row">
-                    <div class="col-lg-10 mx-auto">
-                        <h1><strong>My blog</strong></h1>
-                        <a class="btn btn-light btn-xl sr-button" href="{{url_for('auth.login')}}">Get Started</a>
-                        <hr>
-                    </div>
-                </div>
-                <div class="col-lg-8 mx-auto">
-                </div>
-            </div>
-        </div>
-    </header>
-</section>
+<body style="background-color: #E5DFC6  ;">
 
-<!-- Blogs section -->
-<div class="row" id="religion">
-    <div class="category col-md-12">
-        <h4 id="religion" class="blog_title">Religion</h4>
-        <ul>
-            {{macro.displayBlogs(Religion)}}
-        </ul>
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto" >
+      {% for blog in blogs %}
+      <div class="preview">
+        <a href="blog/new/{{ blog.id }}">
+        <h2 class="title">{{ blog.title }}</h2></a>
+        <p>{{blog.topic}}</p>
+        <p>{{ blog.content}}</p>
+        <small><p>Posted by {{blog.author }} on {{ blog.date.strftime('%B %d, %Y') }}</p></small>
+      </div>
+      <hr>
+      {% endfor %}
+      <hr>
     </div>
-</div>
-</div>
+  </div>
+  </div>
 
-<div class="row" id="politics">
-    <div class="category col-md-12">
-        <h4 id="politics" class="blog_title">Politics</h4>
-        <ul>
-            {{macro.displayBlogs(Politics)}}
-        </ul>
-    </div>
-</div>
-</div>
+  <div class="container">
 
-<div class="row" id="love">
-    <div class="category col-md-12">
-        <h4 id="love" class="blog_title">Love</h4>
-        <ul>
-            {{macro.displayBlogs(Love)}}
-        </ul>
-    </div>
+    <img src="https://images.pexels.com/photos/1227520/pexels-photo-1227520.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="globe" style="width:100%; height:400px">
+<div class="content">
+    <h1>Blog Insight</h1>
+    <p>Inspire and get some Insights.</p>
 </div>
-</div>
+    <div class="btn-group mt-2" role="group" aria-label="Basic example">
 
-<div class="row" id="cancer">
-    <div class="category col-md-12">
-        <h4 id="cancer" class="blog_title">Cancer</h4>
-        <ul>
-            {{macro.displayBlogs(Cancer)}}
-        </ul>
-    </div>
-</div>
-</div>
+      <a class="btn btn-primary btn-lg" href="/subscribe">Subscribe</a>
+      
+  </div> 
 
-<div class="row" id="science">
-    <div class="category col-md-12">
-        <h4 id="science" class="blog_title">Science/h4>
-        <ul>
-            {{macro.displayBlogs(Science)}}
-        </ul>
-    </div>
-</div>
-</div>
-{% endblock%}
 
-</html>
+ </div>
+  {% endblock%}
+</body>

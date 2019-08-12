@@ -5,7 +5,6 @@ from .. import db,photos
 from ..models import User,Role,Blog,Comment
 from .forms import UpdateProfile,BlogsForm,CommentsForm
 
-# View function for the landing page
 @main.route('/')
 def index():
 
@@ -16,9 +15,8 @@ def index():
     Science = Blog.query.filter_by(category="Science").all()
 
     blogs = Blog.query.filter().all()
-    return render_template('index.html',Religion=Religion,Politics=Politics,Love=Love,Cancer=Cancer,Science=Science,blogs=blogs)
+    return render_template('index.html',Religion=Religion,Politics=Politics,Love=Love,Cancer=Cancer,Science=Science,blog=blog)
 
-# View function for profile
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -28,7 +26,6 @@ def profile(uname):
 
     return render_template("profile/profile.html", user = user)
 
-# Update profile view function
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
 def update_profile(uname):
@@ -48,7 +45,6 @@ def update_profile(uname):
 
     return render_template('profile/update.html',form =form)
 
-# update photos view function
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required
 def update_pic(uname):
@@ -59,7 +55,7 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
-# Blog view function
+
 @main.route('/blog/new', methods = ['GET','POST'])
 @login_required
 def new_blog():
@@ -73,10 +69,9 @@ def new_blog():
         story= blog_form.story.data
         category= blog_form.category.data
 
-        # Updated  instance
         new_blog = Blog(blog_title=blog_title,blog_description=blog_description,story=story,category=category,user=current_user)
         blogs = Blog.query.filter().all()
-        # save  method
+
         new_blog.save_blog()
 
         return redirect(url_for('main.blog'))
@@ -95,7 +90,7 @@ def blog():
 
     blogs = Blog.query.filter().all()
 
-    return render_template('blogs.html',Gaming=Gaming,Career=Career,Finance=Finance,Gossip=Gossip,Sports=Sports,Fitness=Fitness,blogs=blogs)
+    return render_template('blogs.html',Religion=Religion,Politics=Politics,Love=Love,Cancer=Cancer,Science=Science,blogs=blogs)
 
 
 @main.route('/comment/<int:id>', methods = ['GET','POST'])

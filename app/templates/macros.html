@@ -1,0 +1,22 @@
+{%macro displayBlogs(blogs)%}
+<div class= "container-fluid">
+    <div class="row">
+    {%for blog in blogs%}
+    <div class="col-md-6 mb-4">
+        <div class="card border-dark flex-fill">
+            <div class="card-header">
+                <h4 class="blog_title">{{blog.blog_title}}</h4>
+            </div>
+        <div class="card-body">
+            <p>{{blog.blog_description|truncate(300)}}</p>
+            <a class="btn btn-primary btn-xl sr-button" href="{{url_for('main.blog')}}">View More</a>
+        </div>
+    </div>
+</div>
+<br> 
+<br>
+<br>
+{%endfor%}
+</div>
+</div>
+{% endmacro %}
