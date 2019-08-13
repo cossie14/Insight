@@ -15,14 +15,14 @@ class Config:
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 class ProdConfig(Config):
-     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/blog'
+     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/insight'
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/blog_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/insight_test'
     QUOTES_API='http://quotes.stormconsultancy.co.uk/random.json'
    
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/blog'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/insight'
     
     DEBUG = True
 

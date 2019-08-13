@@ -60,17 +60,14 @@ def update_pic(uname):
 @main.route('/blog/new', methods = ['GET','POST'])
 @login_required
 def new_blog():
-    blog_form = BlogsForm()
+    form = BlogsForm()
 
 
-    if blog_form.validate_on_submit():
+    if form.validate_on_submit():
 
-        blog_title= blog_form.blog_title.data
-        blog_description= blog_form.blog_description.data
-        story= blog_form.story.data
-        category= blog_form.category.data
-
-        new_blog = Blog(blog_title=blog_title,blog_description=blog_description,story=story,category=category,user=current_user)
+     
+        new_blog = Blog(blog_title=form.blog_title.data,blog_description=form.blog_description.data,story=form.story.data,category=form.category.data,author=form.author.data)
+        
         blogs = Blog.query.filter().all()
 
         new_blog.save_blog()
@@ -78,7 +75,7 @@ def new_blog():
         return redirect(url_for('main.blog'))
 
     title = 'New Blog'
-    return render_template('new_blog.html',title = title, blog_form=blog_form)
+    return render_template('new_blog.html', blog_form=form,form=form)
 
 @main.route('/blog', methods = ['GET','POST'])
 @login_required

@@ -6,10 +6,11 @@ from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length
 
 class BlogsForm(FlaskForm):
-    title = StringField('title',validators=[Required()])
-    description = StringField('blog description',validators=[Required()])
+    blog_title = StringField('title',validators=[Required()])
+    blog_description = StringField('blog description',validators=[Required()])
     story = TextAreaField('Give the blog content',validators=[Required()])
     category = SelectField('Category', choices=[('Religion','Religion'),('Politics','Politics'),('Love','Love'),('Cancer','Cancer'),('Science','Science')], validators=[Required()])
+    author=StringField('Give author',validators=[Required()])
     submit = SubmitField('Post')
 
 class CommentsForm(FlaskForm):

@@ -60,9 +60,8 @@ class Blog(db.Model):
     story = db.Column(db.String())
     category = db.Column(db.String(255))
     posted  = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
-
-    # This defines the relationships with other tables
-    author = db.Column(db.Integer,db.ForeignKey("users.id"))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    author = db.Column(db.String())
     comments = db.relationship('Comment',backref = 'blog',lazy="dynamic")
 
     def save_blog(self):
