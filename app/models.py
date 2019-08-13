@@ -126,6 +126,9 @@ class Subscriber(UserMixin, db.Model):
        return f'User {self.email}'   
 
 
-
+class Quote:
+   def __init__(self,quote,author):
+       self.quote=quote
+       self.author=author
 
 

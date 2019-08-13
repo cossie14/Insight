@@ -4,6 +4,7 @@ from . import main
 from .. import db,photos
 from ..models import User,Blog,Comment
 from .forms import UpdateProfile,BlogsForm,CommentsForm
+from app.requests import get_quote
 
 @main.route('/')
 def index():
@@ -13,9 +14,9 @@ def index():
     Love = Blog.query.filter_by(category="Love").all()
     Cancer = Blog.query.filter_by(category="Cancer").all()
     Science = Blog.query.filter_by(category="Science").all()
-
+    quotes=get_quote()
     blogs = Blog.query.filter().all()
-    return render_template('index.html',Religion=Religion,Politics=Politics,Love=Love,Cancer=Cancer,Science=Science,blog=blog)
+    return render_template('index.html',Religion=Religion,Politics=Politics,Love=Love,Cancer=Cancer,Science=Science,blog=blog,quotes=quotes)
 
 @main.route('/user/<uname>')
 def profile(uname):

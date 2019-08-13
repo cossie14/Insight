@@ -1,5 +1,6 @@
 
 {% extends 'base.html'%}
+{% import 'macros.html'as macro%}
 {% block styles%} {{ super() }}
 <link rel="stylesheet" href="{{url_for('static',filename='css/blog.css')}}"> {% endblock %}
 {% block content %}
@@ -8,6 +9,19 @@
 
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto" >
+        {% for quote in quotes %}
+        <div class="card">
+         <div class="card-header">
+           Quote
+         </div>
+         <div class="card-body">
+           <blockquote class="blockquote mb-0">
+             <p>{{quote.quote}}</p>
+             <footer class="blockquote-footer">Developer<cite title="Source Title">{{quote.author}}</cite></footer>
+           </blockquote>
+         </div>
+        </div><br>
+        {% endfor %}
       {% for blog in blogs %}
       <div class="preview">
         <a href="blog/new/{{ blog.id }}">
@@ -40,5 +54,56 @@
 
 
 
-  {% endblock%}
+  <div class="row" id="religion">
+      <div class="category col-md-12">
+          <h4 id="religion" class="blog_title">Religion</h4>
+          <ul>
+              {{macro.displayBlogs(Religion)}}
+          </ul>
+      </div>
+  </div>
+  </div>
+  
+  <div class="row" id="politics">
+      <div class="category col-md-12">
+          <h4 id="politics" class="blog_title">Politics</h4>
+          <ul>
+              {{macro.displayBlogs(Politics)}}
+          </ul>
+      </div>
+  </div>
+  </div>
+  
+  <div class="row" id="love">
+      <div class="category col-md-12">
+          <h4 id="love" class="blog_title">Love</h4>
+          <ul>
+              {{macro.displayBlogs(Love)}}
+          </ul>
+      </div>
+  </div>
+  </div>
+  
+  <div class="row" id="cancer">
+      <div class="category col-md-12">
+          <h4 id="cancer" class="blog_title">Cancer</h4>
+          <ul>
+              {{macro.displayBlogs(Cancer)}}
+          </ul>
+      </div>
+  </div>
+  </div>
+  
+  <div class="row" id="science">
+      <div class="category col-md-12">
+          <h4 id="science" class="blog_title">Science/h4>
+          <ul>
+              {{macro.displayBlogs(Science)}}
+          </ul>
+      </div>
+  </div>
+  </div>
+</body>
+</html>
 
+{% endblock%}

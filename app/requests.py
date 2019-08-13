@@ -1,5 +1,5 @@
 import urllib.request,json
-from flaskblog.models import Quote
+from app.models import Quote
 
 # Base URL
 base_url = 'http://quotes.stormconsultancy.co.uk/random.json'
