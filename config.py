@@ -17,7 +17,7 @@ class Config:
 class ProdConfig(Config):
      SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/insight'
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/insight_test'
+
     QUOTES_API='http://quotes.stormconsultancy.co.uk/random.json'
    
 
