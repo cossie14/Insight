@@ -3,19 +3,19 @@ import os
 class Config:
 
    
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = ('cossie')
 
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
     SQLALCHEMY_TRACK_MODIFICATIONS=True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = 'sylviah.rutto@gmail.com'
+    MAIL_PASSWORD = 'mulu@gift'
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 class ProdConfig(Config):
-     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/insight'
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://sylviah:sly@localhost/insight_test'
     QUOTES_API='http://quotes.stormconsultancy.co.uk/random.json'
