@@ -60,7 +60,7 @@ def update_pic(uname):
 @main.route('/blog/new', methods = ['GET','POST'])
 @login_required
 def new_blog():
-    blog_form = BlogForm()
+    blog_form = BlogsForm()
 
 
     if blog_form.validate_on_submit():
